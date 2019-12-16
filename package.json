@@ -1,5 +1,5 @@
 {
-  "name": "full-stack-open-2019-puhelinluettelo-backend",
+  "name": "full-stack-mooc-2019-persons-backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,8 +12,8 @@
     "type": "git",
     "url": "git+https://github.com/sweettooth90/full-stack-open-2019-osa3.git"
   },
-  "author": "Simo Kuparinen",
-  "license": "MIT",
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
     "nodemon": "^2.0.2"
   },
