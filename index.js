@@ -47,23 +47,26 @@ app.get('/info', (req, res) => {
     })
 })
 
-app.get('/api/persons/:id', (req, res) => {
+app.get('/api/persons/:id', (req, res, next) => {
     Person.findById(req.params.id).then(person => {
         if (person) {
-            res.json(person)
+            res.json(person.toJSON())
         } else {
             res.status(404).end()
         }
     })
+    .catch(error => next(error))
 })
 
-app.delete('/api/persons/:id', (res, req) => {
-    Person.findByIdAndRemove(req.params.id).then(() => {
+app.delete('/api/persons/:id', (res, req, next) => {
+    Person.findByIdAndRemove(req.params.id)
+    .then(result => {
         res.status(204).end()
     })
+    .catch(error => next(error))
 })
 
-app.put('/api/persons/:id', (res, req) => {
+app.put('/api/persons/:id', (res, req, next) => {
     const body = req.body
 
     const person = {
@@ -75,6 +78,7 @@ app.put('/api/persons/:id', (res, req) => {
     .then(updatedPerson => {
         res.json(updatedPerson.toJSON())
     })
+    .catch(error => next(error))
 })
 
 const generateId = () => Math.floor(Math.random() * Math.floor(99999))
@@ -111,7 +115,20 @@ app.post('/api/persons', (res, req) => {
     .then(savedAndFormattedPerson => {
         res.json(savedAndFormattedPerson)
     })
+    .catch(error => next(error))
 })
+
+const errorHandler = (error, req, res, next) => {
+    console.error(error.message)
+    if (error.name === 'CastError' && error.kind == 'ObjectId') {
+        return res.status(404).send({error: 'malformatted id'})
+    } else if (error.name === 'ValidationError') {
+        return res.status(404).json({error: error.message})
+    }
+    next(error)
+}
+
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
