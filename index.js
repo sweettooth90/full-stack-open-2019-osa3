@@ -110,7 +110,8 @@ app.post('/api/persons', (res, req) => {
         id: generateId()
     }
 
-    addPerson.save()
+    addPerson
+    .save()
     .then(savedPerson => savedPerson.toJSON())
     .then(savedAndFormattedPerson => {
         res.json(savedAndFormattedPerson)
