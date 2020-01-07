@@ -1,6 +1,9 @@
 {
   "name": "full-stack-mooc-2019-puhelinluettelo-backend",
   "version": "1.0.0",
+  "engines": {
+    "node": "12.14.0"
+  },
   "description": "",
   "main": "index.js",
   "scripts": {
