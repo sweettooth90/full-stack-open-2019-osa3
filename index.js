@@ -6,6 +6,7 @@ const cors = require('cors')
 const Person = require('./models/persons')
 require('dotenv').config()
 
+morgan.token('body', (req) => JSON.stringify(req.body))
 app.use(bodyParser.json())
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
 app.use(cors())
@@ -67,12 +68,7 @@ app.delete('/api/persons/:id', (res, req, next) => {
 })
 
 app.put('/api/persons/:id', (res, req, next) => {
-    const body = req.body
-
-    const person = {
-        name: body.name,
-        number: body.number
-    }
+    const person = req.body
 
     Person.findByIdAndUpdate(req.params.id, person, {new: true})
     .then(updatedPerson => {
