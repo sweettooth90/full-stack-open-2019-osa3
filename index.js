@@ -1,10 +1,10 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const cors = require('cors')
 const Person = require('./models/persons')
-require('dotenv').config()
 
 morgan.token('body', (req) => JSON.stringify(req.body))
 app.use(bodyParser.json())
