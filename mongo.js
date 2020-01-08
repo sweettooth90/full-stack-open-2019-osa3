@@ -7,7 +7,7 @@ if ( process.argv.length<3 ) {
 }
 
 mongoose.connect(
-    `mongodb+srv://fullstack:${process.argv[2]}@cluster0-3i3p8.mongodb.net/test?retryWrites=true&w=majority`, 
+    `mongodb+srv://fullstack:fullstack@cluster0-3i3p8.mongodb.net/test?retryWrites=true&w=majority`, 
     { useNewUrlParser: true, useUnifiedTopology: true }
 )
 
